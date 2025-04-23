@@ -202,17 +202,17 @@ function App() {
             />
             <YAxis domain={["auto", "auto"]} tick={false}/>
             <Tooltip
-      contentStyle={{
-        backgroundColor: 'rgba(0, 0, 0, 0.7)',   // Background color of the tooltip
-        borderRadius: '5px',  // Rounded corners
-        border: '1px solid #ccc',  // Border color of the tooltip
-        padding: '10px',   // Padding inside the tooltip
-      }}
-      labelStyle={{
-        fontWeight: 'bold',   // Make the label bold
-        color: 'red',   // Change label color
-      }}
-      formatter={(value) => [`$${value.toLocaleString()}`]}   // Custom tooltip value format
+      // contentStyle={{
+      //   backgroundColor: 'rgba(0, 0, 0, 0.7)',   // Background color of the tooltip
+      //   borderRadius: '5px',  // Rounded corners
+      //   border: '1px solid #ccc',  // Border color of the tooltip
+      //   padding: '10px',   // Padding inside the tooltip
+      // }}
+      // labelStyle={{
+      //   fontWeight: 'bold',   // Make the label bold
+      //   color: 'red',   // Change label color
+      // }}
+      // formatter={(value) => [`$${value.toLocaleString()}`]}   // Custom tooltip value format
       
     />
             
