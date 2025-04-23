@@ -1,18 +1,14 @@
 import React, { useState } from "react";
 import {
-  LineChart,
   Area,
   AreaChart,
-  Line,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
-  Legend,
   ReferenceLine,
   ResponsiveContainer,
 } from 'recharts';
-import { BsArrowsAngleExpand ,BsPlusCircle  } from "react-icons/bs";
+import { BsArrowsAngleExpand, BsPlusCircle } from "react-icons/bs";
 import './App.css';
 
 const chartData = [
@@ -147,127 +143,128 @@ const ranges = ["1d", "3d", "1w", "1m", "6m", "1y", "max"];
 
 function App() {
 
-    const [activeTab, setActiveTab] = useState("Chart");
-    const [activeRange, setActiveRange] = useState("1w");
-  
-    const currentPrice = 63179.71;
-    const change = 2161.42;
-    const changePercent = 3.54;
-  
-    return (
-      <div className="dashboard">
-        <div className="price-header">
-          <h1>
-            {currentPrice.toLocaleString()} <sup>USD</sup>
-          </h1>
-          <p className="price-change">+{change.toLocaleString()} ({changePercent}%)</p>
-         
+  const [activeTab, setActiveTab] = useState("Chart");
+  const [activeRange, setActiveRange] = useState("1w");
+
+  const currentPrice = 63179.71;
+  const change = 2161.42;
+  const changePercent = 3.54;
+
+  return (
+    <div className="dashboard">
+      <div className="price-header">
+        <h1>
+          {currentPrice.toLocaleString()} <sup>USD</sup>
+        </h1>
+        <p className="price-change">+{change.toLocaleString()} ({changePercent}%)</p>
+
+      </div>
+
+      <div className="tabs">
+        {tabs.map(tab => (
+          <div
+            key={tab}
+            className={`tab ${tab === activeTab ? "active" : ""}`}
+            onClick={() => setActiveTab(tab)}
+          >
+            {tab}
+          </div>
+        ))}
+      </div>
+
+      <div className="toolbar">
+        <div className="left-controls">
+          <button><BsArrowsAngleExpand /> Fullscreen</button>
+          <button><BsPlusCircle />Compare</button>
         </div>
-  
-        <div className="tabs">
-          {tabs.map(tab => (
-            <div
-              key={tab}
-              className={`tab ${tab === activeTab ? "active" : ""}`}
-              onClick={() => setActiveTab(tab)}
+        <div className="range-selector">
+          {ranges.map(range => (
+            <button
+              key={range}
+              className={range === activeRange ? "active" : ""}
+              onClick={() => setActiveRange(range)}
             >
-              {tab}
-            </div>
+              {range}
+            </button>
           ))}
         </div>
-  
-        <div className="toolbar">
-          <div className="left-controls">
-            <button><BsArrowsAngleExpand /> Fullscreen</button>
-            <button><BsPlusCircle />Compare</button>
-          </div>
-          <div className="range-selector">
-            {ranges.map(range => (
-              <button
-                key={range}
-                className={range === activeRange ? "active" : ""}
-                onClick={() => setActiveRange(range)}
-              >
-                {range}
-              </button>
-            ))}
-          </div>
-        </div>
-  
-        <div className="chart-container">
+      </div>
+
+      <div className="chart-container">
         <ResponsiveContainer width="100%" height={300}>
-          <AreaChart  data={chartData} >
-          
+          <AreaChart data={chartData} >
+
             <XAxis dataKey="name" tick={false}
             />
-            <YAxis domain={["auto", "auto"]} tick={false}/>
+            <YAxis domain={["auto", "auto"]} tick={false} />
             <Tooltip
-      // contentStyle={{
-      //   backgroundColor: 'rgba(0, 0, 0, 0.7)',   // Background color of the tooltip
-      //   borderRadius: '5px',  // Rounded corners
-      //   border: '1px solid #ccc',  // Border color of the tooltip
-      //   padding: '10px',   // Padding inside the tooltip
-      // }}
-      // labelStyle={{
-      //   fontWeight: 'bold',   // Make the label bold
-      //   color: 'red',   // Change label color
-      // }}
-      // formatter={(value) => [`$${value.toLocaleString()}`]}   // Custom tooltip value format
-      
-    />
-            
-            <ReferenceLine x="Point 20"  stroke="#e0e0e0" />
-            <ReferenceLine x="Point 40"  stroke="#e0e0e0" />
-            <ReferenceLine x="Point 60"  stroke="#e0e0e0" />
-            <ReferenceLine x="Point 80"  stroke="#e0e0e0" />
-            <ReferenceLine x="Point 100"  stroke="#e0e0e0" />
+            // contentStyle={{
+            //   backgroundColor: 'rgba(0, 0, 0, 0.7)',   // Background color of the tooltip
+            //   borderRadius: '5px',  // Rounded corners
+            //   border: '1px solid #ccc',  // Border color of the tooltip
+            //   padding: '10px',   // Padding inside the tooltip
+            // }}
+            // labelStyle={{
+            //   fontWeight: 'bold',   // Make the label bold
+            //   color: 'red',   // Change label color
+            // }}
+            // formatter={(value) => [`$${value.toLocaleString()}`]}   // Custom tooltip value format
 
-            <ReferenceLine x="Point 45"  stroke="#999999"  />
+            />
+
+            <ReferenceLine x="Point 20" stroke="#e0e0e0" />
+            <ReferenceLine x="Point 40" stroke="#e0e0e0" />
+            <ReferenceLine x="Point 60" stroke="#e0e0e0" />
+            <ReferenceLine x="Point 80" stroke="#e0e0e0" />
+            <ReferenceLine x="Point 100" stroke="#e0e0e0" />
+
+            <ReferenceLine x="Point 45" stroke="#999999" strokeDasharray="3 3" />
             <ReferenceLine
-  y={63163}
-  stroke="#999999"
-  label={({ viewBox }) => {
-    const { y, width } = viewBox;
-    const labelText = "64484";
-    return (
-      <>
-        <rect
-          x={width - 55}
-          y={y - 10}
-          width={55}
-          height={20}
-          fill="rgb(0, 0, 0)"
-          rx={4}
-        />
-        <text
-          x={width - 10}
-          y={y}
-          fill="rgb(250, 247, 247)"
-          fontSize={12}
-          fontWeight="bold"
-          fontFamily="monospace"
-          textAnchor="end"
-          alignmentBaseline="middle"
-        >
-          {labelText}
-        </text>
-      </>
-    );
-  }}
-/>
+              y={63163}
+              stroke="#999999"
+              strokeDasharray="3 3"
+              label={({ viewBox }) => {
+                const { y, width } = viewBox;
+                const labelText = "64484";
+                return (
+                  <>
+                    <rect
+                      x={width - 55}
+                      y={y - 10}
+                      width={55}
+                      height={20}
+                      fill="rgb(0, 0, 0)"
+                      rx={4}
+                    />
+                    <text
+                      x={width - 10}
+                      y={y}
+                      fill="rgb(250, 247, 247)"
+                      fontSize={12}
+                      fontWeight="bold"
+                      fontFamily="monospace"
+                      textAnchor="end"
+                      alignmentBaseline="middle"
+                    >
+                      {labelText}
+                    </text>
+                  </>
+                );
+              }}
+            />
             <Area
-      type="linear"
-      dataKey="price"
-      stroke="#4f46e5"            // Line color
-      fill="rgba(79, 70, 229, 0.1)" // Fill color beneath the line
-      strokeWidth={2}
-    />
+              type="linear"
+              dataKey="price"
+              stroke="#4f46e5"            // Line color
+              fill="rgba(79, 70, 229, 0.1)" // Fill color beneath the line
+              strokeWidth={2}
+            />
           </AreaChart >
         </ResponsiveContainer>
-        
-        </div>
+
       </div>
-    );
+    </div>
+  );
 };
 
 export default App;
