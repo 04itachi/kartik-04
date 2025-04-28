@@ -16,7 +16,7 @@ const generateChartData = (baseValue, baseVolume, volatility) => {
   const points = [];
   let currentValue = baseValue;
   for (let i = 1; i <= 120; i++) {
-    // Value changes slowly or fast depending on volatility
+
     currentValue += Math.floor(Math.random() * volatility * 2 - volatility);
     const volume = baseVolume + Math.floor(Math.random() * 10 - 5);
     points.push({
@@ -28,15 +28,15 @@ const generateChartData = (baseValue, baseVolume, volatility) => {
   return points;
 };
 
-// Chart data with different volatilities
+
 const chartDataByRange = {
-  "1d": generateChartData(64000, 10, 100),  // High volatility
+  "1d": generateChartData(64000, 10, 100),
   "3d": generateChartData(64100, 12, 400),
   "1w": generateChartData(63900, 8, 300),
   "1m": generateChartData(64500, 15, 200),
   "6m": generateChartData(63000, 20, 100),
-  "1y": generateChartData(64000, 25, 100),   // Very low volatility
-  "max": generateChartData(64000, 20, 100),  // Super smooth
+  "1y": generateChartData(64000, 25, 100),
+  "max": generateChartData(64000, 20, 100),
 };
 
 
@@ -63,20 +63,20 @@ function App() {
     valueMax: 0,
     valueMin: 0,
   });
-  
+
 
   const generateReferenceLines = (data) => {
     const valueValues = data.map(d => d.value);
-    
+
     const randomValueMax = valueValues[Math.floor(Math.random() * valueValues.length)];
-    const randomValueMin = randomValueMax-500
-    console.log(randomValueMin,randomValueMax,"heelo");
+    const randomValueMin = randomValueMax - 500
+    console.log(randomValueMin, randomValueMax, "heelo");
     return {
       valueMax: randomValueMax,
       valueMin: randomValueMin,
     };
-    
-    
+
+
   };
 
   useEffect(() => {
@@ -150,7 +150,7 @@ function App() {
             <ReferenceLine x="Point 45" stroke="#999999" strokeDasharray="3 3" yAxisId="price" />
             <ReferenceLine
               y={referenceLines.valueMax}
-              yAxisId="price" // ✅ this must match your defined axis
+              yAxisId="price"
               stroke="#999999"
               strokeDasharray="3 3"
               label={({ viewBox }) => {
@@ -185,10 +185,10 @@ function App() {
             />
             <ReferenceLine
               y={referenceLines.valueMin}
-              yAxisId="price" // ✅ this must match your defined axis
+              yAxisId="price"
 
               fill="rgb(250, 247, 247,0.1)"
-              // stroke="transparent"
+              stroke="transparent"
               label={({ viewBox }) => {
                 if (!viewBox) return null;
                 const { y, width } = viewBox;
@@ -219,7 +219,6 @@ function App() {
                 );
               }}
             />
-            {/* Price area chart */}
             <Area
               yAxisId="price"
               type="linear"
@@ -230,18 +229,9 @@ function App() {
               fill="url(#colorValue)"
             />
 
-            {/* Volume bar chart */}
             <Bar yAxisId="volume" dataKey="volume" fill="#e2e8f0" barSize={2} radius={0} />
 
-            {/* Price indicators */}
-            <div >
-              <p >
-                64,850.35
-              </p>
-              <p>
-                63,179.71
-              </p>
-            </div>
+
           </ComposedChart>
         </ResponsiveContainer>
 
